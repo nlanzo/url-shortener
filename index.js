@@ -26,7 +26,7 @@ app.get('/', function(req, res) {
 const urlSchema = new mongoose.Schema({ original_url: String });
 const Url = mongoose.model('Url', urlSchema);
 
-app.post('/api/shorturl/', function(req, res) {
+app.post('/api/shorturl', function(req, res) {
   const original_url = req.body.url;
   const checkdns = dns.lookup(urlparser.parse(original_url).hostname, function(err, address) {
     if (err || !address) {
@@ -34,7 +34,7 @@ app.post('/api/shorturl/', function(req, res) {
     } else {
       const url = new Url({ original_url: original_url });
       url.save();
-      res.json({ original_url: url.original_url, short_url: url.id });
+      res.json({ original_url : url.original_url, short_url : url.id });
       }
   });
 });
